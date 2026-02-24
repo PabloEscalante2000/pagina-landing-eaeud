@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FiCpu, FiSearch, FiHeart, FiShoppingCart, FiArrowDown, FiCalendar, FiGlobe, FiStar, FiBook } from 'react-icons/fi';
 
 const LAUNCH_DATE = new Date('2026-03-27T18:00:00');
@@ -66,25 +66,43 @@ function Divider() {
     );
 }
 
-function BuyButton({ label = 'Comprar el libro', large = false }) {
+function BuyButton({ label = 'Comprar el libro', large = false, showPrice = false }) {
     const [hovered, setHovered] = useState(false);
     return (
-        <button
-            type="button"
-            className={`${large ? 'px-12 py-5 text-base md:text-lg' : 'px-8 py-4 text-sm md:text-base'} font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer`}
-            style={{
-                background: hovered
-                    ? 'linear-gradient(135deg, #DAA520, #b8891a)'
-                    : 'linear-gradient(135deg, #ba4826, #8a3318)',
-                color: hovered ? '#000' : '#fff',
-                border: '2px solid #DAA520',
-                boxShadow: '0 0 30px rgba(186,72,38,0.4)',
-            }}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-        >
-            {label}
-        </button>
+        <div className="inline-flex flex-col items-center gap-2">
+            <button
+                type="button"
+                className={`${large ? 'px-12 py-5 text-base md:text-lg' : 'px-8 py-4 text-sm md:text-base'} font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer flex items-center gap-3`}
+                style={{
+                    background: hovered
+                        ? 'linear-gradient(135deg, #DAA520, #b8891a)'
+                        : 'linear-gradient(135deg, #ba4826, #8a3318)',
+                    color: hovered ? '#000' : '#fff',
+                    border: '2px solid #DAA520',
+                    boxShadow: '0 0 30px rgba(186,72,38,0.4)',
+                }}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+            >
+                {label}
+                <span
+                    className="font-black"
+                    style={{
+                        color: hovered ? '#000' : '#DAA520',
+                        borderLeft: `1px solid ${hovered ? 'rgba(0,0,0,0.3)' : 'rgba(218,165,32,0.5)'}`,
+                        paddingLeft: '0.75rem',
+                        fontSize: large ? '1.1em' : '1em',
+                    }}
+                >
+                    S/. 200
+                </span>
+            </button>
+            {showPrice && (
+                <p className="text-xs" style={{ color: '#6b5a3e' }}>
+                    Precio incluye acceso a los 2 eventos
+                </p>
+            )}
+        </div>
     );
 }
 
@@ -184,10 +202,10 @@ export default function LandingPage() {
                         </blockquote>
 
                         <div className="flex flex-col sm:flex-row items-start gap-4">
-                            <BuyButton label="Comprar el libro" />
+                            <BuyButton label="Comprar el libro" showPrice />
                         </div>
 
-                        <p className="mt-4 text-xs" style={{ color: '#6b5a3e' }}>
+                        <p className="mt-3 text-xs" style={{ color: '#6b5a3e' }}>
                             Envío internacional · Disponible en librerías peruanas
                         </p>
 
@@ -207,13 +225,13 @@ export default function LandingPage() {
                             ))}
                         </div>
                     </div>
-
+                    
                     {/* Right — book image */}
                     <div className="hidden md:flex justify-center items-center">
                         <img
                             src="/images/book-mockup.png"
                             alt="El Amor es un Delirio — portada del libro"
-                            className="w-72 lg:w-80"
+                            className="w-96 lg:w-md"
                             style={{ filter: 'drop-shadow(0 30px 50px rgba(186,72,38,0.5))' }}
                         />
                     </div>
@@ -397,7 +415,7 @@ export default function LandingPage() {
                     </div>
 
                     <div className="mt-14">
-                        <BuyButton label="Comprar el libro y asistir a los eventos" large />
+                        <BuyButton label="Comprar el libro y asistir a los eventos" large showPrice />
                         <p className="mt-4 text-xs" style={{ color: '#6b5a3e' }}>
                             * El acceso a ambos eventos está incluido con la compra del libro
                         </p>
@@ -489,7 +507,7 @@ export default function LandingPage() {
                         ))}
                     </div>
 
-                    <BuyButton label="Quiero mi libro ahora" large />
+                    <BuyButton label="Quiero mi libro ahora" large showPrice />
                 </div>
             </section>
 
