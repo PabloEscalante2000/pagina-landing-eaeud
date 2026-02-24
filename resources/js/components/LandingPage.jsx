@@ -70,9 +70,9 @@ function BuyButton({ label = 'Comprar el libro', large = false, showPrice = fals
     const [hovered, setHovered] = useState(false);
     return (
         <div className="inline-flex flex-col items-center gap-2">
-            <button
-                type="button"
-                className={`${large ? 'px-12 py-5 text-base md:text-lg' : 'px-8 py-4 text-sm md:text-base'} font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer flex items-center gap-3`}
+            <a
+                href="/comprar"
+                className={`${large ? 'px-12 py-5 text-base md:text-lg' : 'px-8 py-4 text-sm md:text-base'} font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer flex items-center gap-3 no-underline`}
                 style={{
                     background: hovered
                         ? 'linear-gradient(135deg, #DAA520, #b8891a)'
@@ -80,6 +80,7 @@ function BuyButton({ label = 'Comprar el libro', large = false, showPrice = fals
                     color: hovered ? '#000' : '#fff',
                     border: '2px solid #DAA520',
                     boxShadow: '0 0 30px rgba(186,72,38,0.4)',
+                    textDecoration: 'none',
                 }}
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
@@ -96,7 +97,7 @@ function BuyButton({ label = 'Comprar el libro', large = false, showPrice = fals
                 >
                     S/. 200
                 </span>
-            </button>
+            </a>
             {showPrice && (
                 <p className="text-xs" style={{ color: '#6b5a3e' }}>
                     Precio incluye acceso a los 2 eventos
@@ -125,8 +126,8 @@ function FloatingBuyButton() {
                 pointerEvents: visible ? 'auto' : 'none',
             }}
         >
-            <button
-                type="button"
+            <a
+                href="/comprar"
                 className="flex items-center gap-2 px-5 py-3 font-bold uppercase tracking-widest text-sm transition-all duration-300 cursor-pointer"
                 style={{
                     background: hovered
@@ -135,13 +136,14 @@ function FloatingBuyButton() {
                     color: hovered ? '#000' : '#fff',
                     border: '2px solid #DAA520',
                     boxShadow: '0 4px 24px rgba(186,72,38,0.5), 0 0 0 1px rgba(218,165,32,0.15)',
+                    textDecoration: 'none',
                 }}
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
             >
                 <FiShoppingCart size={16} />
                 <span>Comprar</span>
-            </button>
+            </a>
         </div>
     );
 }
